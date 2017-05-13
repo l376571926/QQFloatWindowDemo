@@ -37,7 +37,7 @@ public class FloatWindowSmallView extends LinearLayout {
     /**
      * 小悬浮窗的布局
      */
-//    private LinearLayout smallWindowLayout;
+    private final TextView mPercentView;
 
     /**
      * 小火箭控件
@@ -93,7 +93,6 @@ public class FloatWindowSmallView extends LinearLayout {
      * 记录当前手指是否按下
      */
     private boolean isPressed;
-    private final TextView mPercentView;
 
     public FloatWindowSmallView(Context context) {
         super(context);

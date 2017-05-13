@@ -1,25 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/big_window_layout"
-	android:layout_width="200dip"
-	android:layout_height="100dip"
-	android:background="@drawable/bg_big"
-	android:orientation="vertical"
-    >
-    <Button 
-        android:id="@+id/close"
-        android:layout_width="100dip"
-        android:layout_height="40dip"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12dip"
-        android:text="关闭悬浮窗"
-        />
-    <Button 
-        android:id="@+id/back"
-        android:layout_width="100dip"
-        android:layout_height="40dip"
-        android:layout_gravity="center_horizontal"
-        android:text="返回"
-        />
-</LinearLayout>
+    android:layout_width="130dp"
+    android:layout_height="150dp"
+    android:background="@drawable/big_view_bg"
+    android:theme="@style/AppTheme"
+    app:theme="@style/AppTheme">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/customButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="启动Activity"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:text="关闭悬浮窗" />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:text="返回" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="设置系统时间" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="设置系统语言" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="可用的输入法" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="应用列表" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="辅助功能" />
+    </LinearLayout>
+
+</ScrollView>

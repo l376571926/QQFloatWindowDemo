@@ -3,10 +3,13 @@ package com.demo.floatwindowdemo;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.graphics.Point;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
+
+import com.socks.library.KLog;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -59,8 +62,8 @@ public class MyWindowManager {
      */
     public static void createSmallWindow(Context context) {
         WindowManager windowManager = getWindowManager(context);
-        int screenWidth = windowManager.getDefaultDisplay().getWidth();
-        int screenHeight = windowManager.getDefaultDisplay().getHeight();
+        Point point = new Point();
+        windowManager.getDefaultDisplay().getSize(point);
         if (smallWindow == null) {
             smallWindow = new FloatWindowSmallView(context);
             if (smallWindowParams == null) {
@@ -68,11 +71,11 @@ public class MyWindowManager {
                 smallWindowParams.type = LayoutParams.TYPE_SYSTEM_ALERT;
                 smallWindowParams.format = PixelFormat.RGBA_8888;
                 smallWindowParams.flags = LayoutParams.FLAG_NOT_TOUCH_MODAL | LayoutParams.FLAG_NOT_FOCUSABLE;
-                smallWindowParams.gravity = Gravity.LEFT | Gravity.TOP;
+                smallWindowParams.gravity = Gravity.START | Gravity.TOP;
                 smallWindowParams.width = FloatWindowSmallView.windowViewWidth;
                 smallWindowParams.height = FloatWindowSmallView.windowViewHeight;
-                smallWindowParams.x = screenWidth;
-                smallWindowParams.y = screenHeight / 2;
+                smallWindowParams.x = point.x;
+                smallWindowParams.y = point.y / 2;
             }
             smallWindow.setParams(smallWindowParams);
             windowManager.addView(smallWindow, smallWindowParams);
@@ -83,6 +86,7 @@ public class MyWindowManager {
      * 将小悬浮窗从屏幕上移除。
      */
     public static void removeSmallWindow(Context context) {
+        KLog.e();
         if (smallWindow != null) {
             WindowManager windowManager = getWindowManager(context);
             windowManager.removeView(smallWindow);
@@ -95,19 +99,20 @@ public class MyWindowManager {
      */
     public static void createBigWindow(Context context) {
         WindowManager windowManager = getWindowManager(context);
-        int screenWidth = windowManager.getDefaultDisplay().getWidth();
-        int screenHeight = windowManager.getDefaultDisplay().getHeight();
+        Point point = new Point();
+        windowManager.getDefaultDisplay().getSize(point);
         if (bigWindow == null) {
             bigWindow = new FloatWindowBigView(context);
             if (bigWindowParams == null) {
                 bigWindowParams = new LayoutParams();
-                bigWindowParams.x = screenWidth / 2 - FloatWindowBigView.viewWidth / 2;
-                bigWindowParams.y = screenHeight / 2 - FloatWindowBigView.viewHeight / 2;
+                bigWindowParams.x = point.x / 2 - FloatWindowBigView.viewWidth / 2;
+                bigWindowParams.y = point.y / 2 - FloatWindowBigView.viewHeight / 2;
                 bigWindowParams.type = LayoutParams.TYPE_PHONE;
                 bigWindowParams.format = PixelFormat.RGBA_8888;
                 bigWindowParams.gravity = Gravity.START | Gravity.TOP;
-                bigWindowParams.width = FloatWindowBigView.viewWidth;
-                bigWindowParams.height = FloatWindowBigView.viewHeight;
+                bigWindowParams.width = FloatWindowBigView.viewWidth;//View显示出来的宽度
+                bigWindowParams.height = FloatWindowBigView.viewHeight;//View显示出来的高度
+                KLog.e(bigWindowParams.x + " " + bigWindowParams.y + " " + bigWindowParams.width + " " + bigWindowParams.height);//361 641 -2 -2
             }
             windowManager.addView(bigWindow, bigWindowParams);
         }
@@ -129,14 +134,14 @@ public class MyWindowManager {
      */
     public static void createLauncher(Context context) {
         WindowManager windowManager = getWindowManager(context);
-        int screenWidth = windowManager.getDefaultDisplay().getWidth();
-        int screenHeight = windowManager.getDefaultDisplay().getHeight();
+        Point point = new Point();
+        windowManager.getDefaultDisplay().getSize(point);
         if (rocketLauncher == null) {
             rocketLauncher = new RocketLauncher(context);
             if (launcherParams == null) {
                 launcherParams = new LayoutParams();
-                launcherParams.x = screenWidth / 2 - RocketLauncher.width / 2;
-                launcherParams.y = screenHeight - RocketLauncher.height;
+                launcherParams.x = point.x / 2 - RocketLauncher.width / 2;
+                launcherParams.y = point.y - RocketLauncher.height;
                 launcherParams.type = LayoutParams.TYPE_PHONE;
                 launcherParams.format = PixelFormat.RGBA_8888;
                 launcherParams.gravity = Gravity.START | Gravity.TOP;
@@ -194,6 +199,12 @@ public class MyWindowManager {
      * @return 当火箭被发到发射台上返回true，否则返回false。
      */
     public static boolean isReadyToLaunch() {
+        if (smallWindowParams == null) {
+            return false;
+        }
+        if (launcherParams == null) {
+            return false;
+        }
         if ((smallWindowParams.x > launcherParams.x && smallWindowParams.x
                 + smallWindowParams.width < launcherParams.x
                 + launcherParams.width)
@@ -241,14 +252,11 @@ public class MyWindowManager {
             FileReader fr = new FileReader(dir);
             BufferedReader br = new BufferedReader(fr, 2048);
             String memoryLine = br.readLine();
-            String subMemoryLine = memoryLine.substring(memoryLine
-                    .indexOf("MemTotal:"));
+            String subMemoryLine = memoryLine.substring(memoryLine.indexOf("MemTotal:"));
             br.close();
-            long totalMemorySize = Integer.parseInt(subMemoryLine.replaceAll(
-                    "\\D+", ""));
+            long totalMemorySize = Integer.parseInt(subMemoryLine.replaceAll("\\D+", ""));
             long availableSize = getAvailableMemory(context) / 1024;
-            int percent = (int) ((totalMemorySize - availableSize)
-                    / (float) totalMemorySize * 100);
+            int percent = (int) ((totalMemorySize - availableSize) / (float) totalMemorySize * 100);
             return percent + "%";
         } catch (IOException e) {
             e.printStackTrace();

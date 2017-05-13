@@ -66,13 +66,13 @@ public class FloatWindowBigView extends LinearLayout implements View.OnClickList
                 intent = new Intent(Settings.ACTION_DATE_SETTINGS);//设置系统时间
                 break;
             case R.id.button2:
-                intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);//设置系统语言
+                intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);//切换系统语言
                 break;
             case R.id.button3:
                 intent = new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS);//设置可用的输入法
                 break;
             case R.id.button4:
-                intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);// 跳转应用程序列表界面
+                intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);// 跳转到应用列表
                 break;
             case R.id.button5:
                 intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);//  跳转到辅助功能

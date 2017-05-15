@@ -41,6 +41,7 @@ public class FloatWindowBigView extends LinearLayout implements View.OnClickList
         findViewById(R.id.button3).setOnClickListener(this);
         findViewById(R.id.button4).setOnClickListener(this);
         findViewById(R.id.button5).setOnClickListener(this);
+        findViewById(R.id.button6).setOnClickListener(this);
     }
 
     @Override
@@ -76,6 +77,9 @@ public class FloatWindowBigView extends LinearLayout implements View.OnClickList
                 break;
             case R.id.button5:
                 intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);//  跳转到辅助功能
+                break;
+            case R.id.button6:
+                intent = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);//开发者选项
                 break;
             default:
                 break;

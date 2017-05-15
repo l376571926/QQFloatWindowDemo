@@ -50,6 +50,11 @@
             android:id="@+id/button5"
             style="@style/list_button_style"
             android:text="跳转到辅助功能" />
+
+        <Button
+            android:id="@+id/button6"
+            style="@style/list_button_style"
+            android:text="开发者选项" />
     </LinearLayout>
 
 </ScrollView>

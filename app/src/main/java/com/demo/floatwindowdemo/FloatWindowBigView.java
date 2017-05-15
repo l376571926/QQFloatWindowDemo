@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.socks.library.KLog;
 
@@ -34,7 +33,6 @@ public class FloatWindowBigView extends LinearLayout implements View.OnClickList
         viewHeight = view.getLayoutParams().height;
         findViewById(R.id.close).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
-        findViewById(R.id.customButton).setOnClickListener(this);
 
         findViewById(R.id.button1).setOnClickListener(this);
         findViewById(R.id.button2).setOnClickListener(this);
@@ -59,9 +57,6 @@ public class FloatWindowBigView extends LinearLayout implements View.OnClickList
                 // 点击返回的时候，移除大悬浮窗，创建小悬浮窗
                 MyWindowManager.removeBigWindow(context);
                 MyWindowManager.createSmallWindow(context);
-                break;
-            case R.id.customButton:
-                Toast.makeText(context, "未定义操作", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.button1:
                 intent = new Intent(Settings.ACTION_DATE_SETTINGS);//设置系统时间

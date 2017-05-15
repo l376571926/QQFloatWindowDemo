@@ -22,11 +22,6 @@
             android:text="关闭悬浮窗" />
 
         <Button
-            android:id="@+id/customButton"
-            style="@style/list_button_style"
-            android:text="启动Activity" />
-
-        <Button
             android:id="@+id/button1"
             style="@style/list_button_style"
             android:text="设置系统时间" />

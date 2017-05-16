@@ -89,6 +89,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
 
     /**
+     * 华为的权限管理页面
+     */
+    private void gotoHuaweiPermission() {
+        try {
+            Intent intent = new Intent();
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            ComponentName comp = new ComponentName("com.huawei.systemmanager", "com.huawei.permissionmanager.ui.MainActivity");//华为权限管理
+            intent.setComponent(comp);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            startActivity(getAppDetailSettingIntent());
+        }
+
+    }
+
+    /**
      * 跳转到魅族的权限管理系统
      */
     private void gotoMeizuPermission() {
@@ -183,7 +200,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public void toSettingActivity() {
         if (TextUtils.equals(Build.MANUFACTURER, "HUAWEI")) {
             KLog.e("打开华为权限管理");
-            goNotificationManager();
+//            goNotificationManager();
+            gotoHuaweiPermission();
         } else if (TextUtils.equals(Build.MANUFACTURER, "Meizu")) {
             KLog.e("打开魅族权限管理");
             gotoMeizuPermission();

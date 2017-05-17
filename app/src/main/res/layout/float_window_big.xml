@@ -16,10 +16,16 @@
             style="@style/list_button_style"
             android:text="返回" />
 
+
         <Button
             android:id="@+id/close"
             style="@style/list_button_style"
             android:text="关闭悬浮窗" />
+
+        <Button
+            android:id="@+id/changeInputMethodBtn"
+            style="@style/list_button_style"
+            android:text="切换输入法" />
 
         <Button
             android:id="@+id/button1"
@@ -31,10 +37,12 @@
             style="@style/list_button_style"
             android:text="切换系统语言" />
 
+        <!--
         <Button
             android:id="@+id/button3"
             style="@style/list_button_style"
             android:text="设置可用的输入法" />
+        -->
 
         <Button
             android:id="@+id/button4"

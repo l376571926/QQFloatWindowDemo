@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
@@ -34,9 +35,11 @@ public class FloatWindowBigView extends LinearLayout implements View.OnClickList
         findViewById(R.id.close).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
 
+        findViewById(R.id.changeInputMethodBtn).setOnClickListener(this);
+
         findViewById(R.id.button1).setOnClickListener(this);
         findViewById(R.id.button2).setOnClickListener(this);
-        findViewById(R.id.button3).setOnClickListener(this);
+//        findViewById(R.id.button3).setOnClickListener(this);
         findViewById(R.id.button4).setOnClickListener(this);
         findViewById(R.id.button5).setOnClickListener(this);
         findViewById(R.id.button6).setOnClickListener(this);
@@ -58,15 +61,18 @@ public class FloatWindowBigView extends LinearLayout implements View.OnClickList
                 MyWindowManager.removeBigWindow(context);
                 MyWindowManager.createSmallWindow(context);
                 break;
+            case R.id.changeInputMethodBtn://切换输入法
+                ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
+                break;
             case R.id.button1:
                 intent = new Intent(Settings.ACTION_DATE_SETTINGS);//设置系统时间
                 break;
             case R.id.button2:
                 intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);//切换系统语言
                 break;
-            case R.id.button3:
-                intent = new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS);//设置可用的输入法
-                break;
+//            case R.id.button3:
+//                intent = new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS);//设置可用的输入法
+//                break;
             case R.id.button4:
                 intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);// 跳转到应用列表
                 break;

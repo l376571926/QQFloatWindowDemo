@@ -3,6 +3,7 @@ package com.demo.floatwindowdemo;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.socks.library.KLog;
 
 public class FloatWindowBigView extends LinearLayout implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
 
+    private Handler mHandler = new Handler();
     private Context context;
     /**
      * 记录大悬浮窗的宽度
@@ -39,7 +41,6 @@ public class FloatWindowBigView extends LinearLayout implements View.OnClickList
 
         findViewById(R.id.button1).setOnClickListener(this);
         findViewById(R.id.button2).setOnClickListener(this);
-//        findViewById(R.id.button3).setOnClickListener(this);
         findViewById(R.id.button4).setOnClickListener(this);
         findViewById(R.id.button5).setOnClickListener(this);
         findViewById(R.id.button6).setOnClickListener(this);
@@ -59,10 +60,15 @@ public class FloatWindowBigView extends LinearLayout implements View.OnClickList
             case R.id.back:
                 // 点击返回的时候，移除大悬浮窗，创建小悬浮窗
                 MyWindowManager.removeBigWindow(context);
-                MyWindowManager.createSmallWindow(context);
                 break;
             case R.id.changeInputMethodBtn://切换输入法
-                ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
+                ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();//移除
+                mHandler.postDelayed(new Runnable() {//延迟一点时间才关闭的悬浮窗，否则无法显示输入法选择dialog
+                    @Override
+                    public void run() {
+                        MyWindowManager.removeBigWindow(context);
+                    }
+                }, 1000);
                 break;
             case R.id.button1:
                 intent = new Intent(Settings.ACTION_DATE_SETTINGS);//设置系统时间
@@ -70,9 +76,6 @@ public class FloatWindowBigView extends LinearLayout implements View.OnClickList
             case R.id.button2:
                 intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);//切换系统语言
                 break;
-//            case R.id.button3:
-//                intent = new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS);//设置可用的输入法
-//                break;
             case R.id.button4:
                 intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);// 跳转到应用列表
                 break;
@@ -86,9 +89,8 @@ public class FloatWindowBigView extends LinearLayout implements View.OnClickList
                 break;
         }
         if (intent != null && v.getId() != R.id.close) {
-            // 点击返回的时候，移除大悬浮窗，创建小悬浮窗
             MyWindowManager.removeBigWindow(context);
-            MyWindowManager.createSmallWindow(context);
+            // 点击返回的时候，移除大悬浮窗，创建小悬浮窗
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             getContext().startActivity(intent);
         }

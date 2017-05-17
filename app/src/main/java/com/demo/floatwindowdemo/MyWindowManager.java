@@ -17,6 +17,16 @@ import java.io.IOException;
 
 public class MyWindowManager {
 
+    public static Context getContext() {
+        if (bigWindow != null) {
+            return bigWindow.getContext();
+        }
+        if (smallWindow != null) {
+            return smallWindow.getContext();
+        }
+        return null;
+    }
+
     /**
      * 小悬浮窗View的实例
      */

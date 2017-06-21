@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
      * @return
      */
     public static boolean isFloatWindowOpAllowed(Context context) {
-        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {//api 19
             AppOpsManager manager = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
             try {
                 Method method = manager.getClass().getDeclaredMethod("checkOp", int.class, int.class, String.class);
@@ -189,12 +189,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            if ((context.getApplicationInfo().flags & 1 << 27) == 1 << 27) {
-                return true;
-            }
+        } else if ((context.getApplicationInfo().flags & 1 << 27) == 1 << 27) {
+            return true;
         }
-        return false;
+
+        return true;//默认有悬浮窗权限 Nubia NX403A api17
     }
 
     public void toSettingActivity() {
